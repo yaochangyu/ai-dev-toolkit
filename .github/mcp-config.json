@@ -1,12 +1,25 @@
 {
   "mcpServers": {
     "context7-http": {
+      "tools": [
+        "*"
+      ],
       "type": "http",
       "url": "https://mcp.context7.com/mcp",
       "headers": {},
-      "tools": [
-        "*"
-      ]
+      "source": "user"
+    },
+    "ms-sql": {
+      "command": "python",
+      "args": ["-m", "mssql_mcp_server"],
+      "env": {
+        "MSSQL_HOST": "192.168.8.99,1433",
+        "MSSQL_DATABASE": "jobs",
+        "MSSQL_USER": "webuser",
+        "MSSQL_PASSWORD": "1111",
+        "MSSQL_DRIVER": "ODBC Driver 18 for SQL Server",
+        "TrustServerCertificate": "yes"
+      }
     }
   }
 }
