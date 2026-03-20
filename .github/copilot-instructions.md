@@ -23,9 +23,15 @@
 - 遵守 SOLID 開發原則
 - Cucumber 的步驟，使用英文
 
+# git
 ## git commit message 格式
 Write a concise commit message from 'git diff --staged' output in the format `[EMOJI] [TYPE](file/topic): [description in {locale}]`. Use GitMoji emojis (e.g., ✨ → feat), present tense, active voice, max 120 characters per line, no code blocks.
 注意：
 回覆時，使用台灣用語的繁體中文
 ---
 {diff}
+
+## git worktree 衝突解決
+   1. 開啟 `git rerere`。
+   2. 在 其中一個 worktree 執行 git rebase develop 並手動解衝突。
+   3. 在 其他 worktree 執行 git rebase develop，git 會自動套用剛才的解法。
