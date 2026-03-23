@@ -27,8 +27,10 @@
 ## git commit message 格式
 Write a concise commit message from 'git diff --staged' output in the format `[EMOJI] [TYPE](file/topic): [description in {locale}]`. Use GitMoji emojis (e.g., ✨ → feat), present tense, active voice, max 120 characters per line, no code blocks.
 注意：
-回覆時，使用台灣用語的繁體中文
+- 回覆時，使用台灣用語的繁體中文
+- 訊息不可以包含 Co-authored-by
 ---
+
 {diff}
 
 ## git worktree 衝突解決
