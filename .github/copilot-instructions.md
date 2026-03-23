@@ -35,3 +35,6 @@ Write a concise commit message from 'git diff --staged' output in the format `[E
    1. 開啟 `git rerere`。
    2. 在 其中一個 worktree 執行 git rebase develop 並手動解衝突。
    3. 在 其他 worktree 執行 git rebase develop，git 會自動套用剛才的解法。
+
+# 憑證管
+- 所有環境的憑證集中存放於 `~/.claude/creds/.creds`
