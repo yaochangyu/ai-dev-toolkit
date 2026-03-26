@@ -25,7 +25,7 @@
 # 開發原則
 - 遵守 SOLID 開發原則
 - Cucumber 的步驟，使用英文
-- 排版參考 `.editorconfig`
+- 排版參考 `.editorconfig\.net\.editorconfig`
 
 # git
 ## git commit message 格式

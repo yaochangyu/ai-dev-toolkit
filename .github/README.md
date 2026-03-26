@@ -58,6 +58,19 @@
 .\link-ai-instructions.ps1 -WslUser your_wsl_username
 ```
 
+### 3. sync-editorconfig.ps1
+
+將 `.editorconfig` 複製到 Windows 個人資料夾與 WSL 對應位置。
+
+**複製目標：**
+- Windows: `%USERPROFILE%\.editorconfig\.net\.editorconfig`
+- WSL: `~/.editorconfig/.net/.editorconfig`
+
+**使用方式：**
+```powershell
+.\sync-editorconfig.ps1
+```
+
 ## 系統需求
 
 - PowerShell 5.1 或更新版本

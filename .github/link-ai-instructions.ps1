@@ -57,9 +57,7 @@ foreach ($target in $targets) {
 Write-Host "Windows links created from: $source"
 
 $wslHome = "/home/$WslUser"
-$drive = $source.Substring(0, 1).ToLower()
-$pathNoDrive = $source.Substring(2) -replace '\\','/'
-$wslSourceFromWindows = "/mnt/$drive$pathNoDrive"
+$wslSourceFromWindows = wsl wslpath -u ($source -replace '\\', '/')
 $wslHomeEsc = $wslHome -replace "'","'\\''"
 $wslSourceFromWindowsEsc = $wslSourceFromWindows -replace "'","'\\''"
 
