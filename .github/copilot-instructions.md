@@ -47,7 +47,7 @@
 - 所有環境的憑證集中存放於 `~/.claude/creds/.creds`
 
 # 專案對應
-- 專案對應表格維護在 `/mnt/d/lab/gitlab-work/project_mapping.csv`
+- 工作專案對應表格維護在 `/mnt/d/lab/gitlab-work/project_mapping.csv`
 
 # 基礎建設
 - 服務位置 `~/.claude/infa.md`
@@ -56,7 +56,7 @@
 - Wiki 知識庫路徑：`/mnt/d/lab/llm-wiki/`
 - 操作規則參考：`/mnt/d/lab/llm-wiki/CLAUDE.md`
 - 專案根目錄：`/mnt/d/lab/`
-- 專案程式碼路徑：對應表見 `/mnt/d/lab/gitlab-work/project_mapping.csv`）
+- 工作專案程式碼路徑：對應表見 `/mnt/d/lab/gitlab-work/project_mapping.csv`）
 - Ingest 程式碼時，直接從原始路徑讀取，不需複製到 `sources/`
 - `sources/` 只放外部資料（文章、論文、技術文件等沒有 repo 的資料）
 - wiki 頁面的 frontmatter `sources` 欄位，程式碼引用使用絕對路徑（如 `/mnt/d/lab/gitlab-work/job/customer-api/src/...`）

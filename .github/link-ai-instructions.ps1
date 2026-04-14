@@ -66,7 +66,7 @@ $wslTargets = @(
     "$wslHome/.copilot/copilot-instructions.md",
     "$wslHome/.claude/CLAUDE.md",
     "$wslHome/.gemini/GEMINI.md",
-    "$wslHome/.hermes/persona.md"
+    "$wslHome/.hermes/SOUL.md"
 )
 
 $wslDirCommands = $wslTargets | ForEach-Object {
