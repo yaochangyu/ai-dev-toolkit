@@ -1,5 +1,4 @@
 # 注意事項
-- 
 - 使用台灣用語的繁體中文進行回覆。
 - 不知道的問題請直接回答「抱歉，我無法回答您的問題」。不要亂回答，不要裝 B。
 - 回答時請保持簡潔明瞭，避免冗長的說明。
@@ -12,6 +11,7 @@
     - 每次只實作一個步驟，完成後待我確認，才能進行下一個步驟；若我使用"自動執行"，才不需要等待確認。
     - 若任務中止，下次再開啟時，讀取 `{功能名稱(英文)}.plan.md`，詢問我是否需要從上次中止的地方繼續，
 	- 若，`{功能名稱(英文)}.plan.md` 內所有的任務都完成了，則移動到封存資料夾 `.archive`。
+- 當發生錯誤時，需要重試，你要記錄失敗的方法、步驟、原因，下次重試前，不要使用已經失敗過的方法，除非我要求你這麼做。
 - @tree.md 檔案維護專案的資料夾結構：
     - 每次新增、刪除、移動檔案或資料夾時，都必須更新 @tree.md 檔案。
     - 被排除的檔案不需要紀錄
@@ -60,3 +60,7 @@
 - Ingest 程式碼時，直接從原始路徑讀取，不需複製到 `sources/`
 - `sources/` 只放外部資料（文章、論文、技術文件等沒有 repo 的資料）
 - wiki 頁面的 frontmatter `sources` 欄位，程式碼引用使用絕對路徑（如 `/mnt/d/lab/gitlab-work/job/customer-api/src/...`）
+
+# graphify
+- **graphify** (`~/.claude/skills/graphify/SKILL.md`) - any input to knowledge graph. Trigger: `/graphify`
+When the user types `/graphify`, invoke the Skill tool with `skill: "graphify"` before doing anything else.
