@@ -1,19 +1,23 @@
 #Requires -Version 5.1
 <#
 .SYNOPSIS
-    Sync .github folder to AI agent folders in user home directory
+    Link/Sync .github folder to AI agent folders in user home directory
 .DESCRIPTION
-    Sync .github folder content to .copilot, .gemini, .claude, .github folders under user home
-    Supports both Windows and WSL environments
+    Links or Copies .github folder content to .copilot, .gemini, .claude, .github folders under user home
+    Supports both Windows and WSL environments.
+    By default, it uses Copy mode for better stability.
+.PARAMETER UseSymlink
+    Use Symbolic Link instead of Copy. Note: May require Administrator privileges on Windows.
 .PARAMETER WslUser
     WSL username. Defaults to current Windows username.
 .EXAMPLE
-    .\sync-ai-agents.ps1
+    .\link-ai-agents.ps1
 .EXAMPLE
-    .\sync-ai-agents.ps1 -WslUser myuser
+    .\link-ai-agents.ps1 -UseSymlink
 #>
 
 param(
+    [switch]$UseSymlink,
     [string]$WslUser = $env:USERNAME
 )
 
@@ -36,12 +40,14 @@ $itemsToSync = @(
     'prompts',
     'skills',
     'mcp-config.json',
-    'README.md'
-    # Exclude copilot-instructions.md - handled by link-ai-instructions.ps1
-    # Exclude link-ai-instructions.ps1 and this script
+    'README.md',
+    'GEMINI.md',
+    'CLAUDE.md'
 )
 
-Write-Host "Syncing .github folder to user home AI agent folders..." -ForegroundColor Cyan
+$modeStr = if ($UseSymlink) { "Symbolic Link" } else { "Copy" }
+Write-Host "Linking .github folder to user home AI agent folders..." -ForegroundColor Cyan
+Write-Host "Mode: $modeStr" -ForegroundColor Yellow
 Write-Host "Source folder: $sourceDir" -ForegroundColor Gray
 Write-Host "Target base: $userHome" -ForegroundColor Gray
 Write-Host ""
@@ -60,7 +66,7 @@ foreach ($targetDirName in $targetDirs) {
         $targetPath = Join-Path $targetBase $item
         
         if (-not (Test-Path $sourcePath)) {
-            Write-Host "[WARN] Skipping non-existent item: $item" -ForegroundColor Yellow
+            # Skip optional files if they don't exist
             continue
         }
         
@@ -72,34 +78,20 @@ foreach ($targetDirName in $targetDirs) {
         $sourceItem = Get-Item $sourcePath
         $itemType = if ($sourceItem.PSIsContainer) { "Folder" } else { "File" }
         
-        try {
-            # Try to create symbolic link
-            if ($sourceItem.PSIsContainer) {
+        if ($UseSymlink) {
+            try {
                 New-Item -ItemType SymbolicLink -Path $targetPath -Target $sourcePath -ErrorAction Stop | Out-Null
-            } else {
-                New-Item -ItemType SymbolicLink -Path $targetPath -Target $sourcePath -ErrorAction Stop | Out-Null
+                Write-Host "  [OK] Link: ~\$targetDirName\$item ($itemType)" -ForegroundColor Green
             }
-            Write-Host "  [OK] Symbolic link: ~\$targetDirName\$item ($itemType)" -ForegroundColor Green
-        }
-        catch {
-            # Symlink failed, use hard link (files only) or copy
-            if (-not $sourceItem.PSIsContainer) {
-                try {
-                    # Try hard link
-                    New-Item -ItemType HardLink -Path $targetPath -Target $sourcePath -ErrorAction Stop | Out-Null
-                    Write-Host "  [OK] Hard link: ~\$targetDirName\$item (File)" -ForegroundColor Green
-                }
-                catch {
-                    # Hard link failed, copy file
-                    Copy-Item -Path $sourcePath -Destination $targetPath -Force
-                    Write-Host "  [INFO] Copied file: ~\$targetDirName\$item (Symlink/Hardlink unavailable)" -ForegroundColor Cyan
-                }
-            }
-            else {
-                # Folder symlink failed, recursive copy
+            catch {
+                Write-Host "  [WARN] Symlink failed, falling back to Copy: $_" -ForegroundColor Yellow
                 Copy-Item -Path $sourcePath -Destination $targetPath -Recurse -Force
-                Write-Host "  [INFO] Copied folder: ~\$targetDirName\$item (Symlink unavailable)" -ForegroundColor Cyan
+                Write-Host "  [OK] Copy: ~\$targetDirName\$item ($itemType)" -ForegroundColor Green
             }
+        }
+        else {
+            Copy-Item -Path $sourcePath -Destination $targetPath -Recurse -Force
+            Write-Host "  [OK] Copy: ~\$targetDirName\$item ($itemType)" -ForegroundColor Green
         }
     }
     
@@ -146,16 +138,24 @@ if ($IsWindows -or (-not (Get-Variable IsWindows -ErrorAction SilentlyContinue))
             $wslSourcePathEsc = $wslSourcePath -replace "'","'\\''"
             $wslTargetPathEsc = $wslTargetPath -replace "'","'\\''"
             
-            # Delete old link, create new link
+            # Delete old link/file
             $commands += "rm -rf '$wslTargetPathEsc'"
-            $commands += "ln -sf '$wslSourcePathEsc' '$wslTargetPathEsc'"
-            $commands += "echo '  [OK] WSL symlink: ~/$targetDirName/$item'"
+            
+            if ($UseSymlink) {
+                $commands += "ln -sf '$wslSourcePathEsc' '$wslTargetPathEsc'"
+                $commands += "echo '  [OK] WSL Link: ~/$targetDirName/$item'"
+            }
+            else {
+                $commands += "cp -r '$wslSourcePathEsc' '$wslTargetPathEsc'"
+                $commands += "echo '  [OK] WSL Copy: ~/$targetDirName/$item'"
+            }
         }
     }
     
     $wslCommand = $commands -join '; '
     
     try {
+        # Using Ubuntu-24.04 as default as per previous script
         wsl.exe -d Ubuntu-24.04 -- /bin/bash -lc $wslCommand
         Write-Host ""
         Write-Host "[OK] WSL sync completed" -ForegroundColor Green
@@ -169,6 +169,8 @@ Write-Host ""
 Write-Host "Sync completed!" -ForegroundColor Green
 Write-Host ""
 Write-Host "Tips:" -ForegroundColor Cyan
-Write-Host "- Symbolic links will auto-sync .github changes" -ForegroundColor Gray
-Write-Host "- If you see copy messages, symlinks are not supported in that environment" -ForegroundColor Gray
-Write-Host "- Copied files need to re-run this script to update" -ForegroundColor Gray
+if ($UseSymlink) {
+    Write-Host "- Symbolic links will auto-sync .github changes" -ForegroundColor Gray
+} else {
+    Write-Host "- Re-run this script to update items in your home directory" -ForegroundColor Gray
+}
