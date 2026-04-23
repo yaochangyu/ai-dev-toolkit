@@ -64,3 +64,7 @@
 # graphify
 - **graphify** (`~/.claude/skills/graphify/SKILL.md`) - any input to knowledge graph. Trigger: `/graphify`
 When the user types `/graphify`, invoke the Skill tool with `skill: "graphify"` before doing anything else.
+
+# goole workspace
+當需要使用 Google Workspace 相關工具（如 Gmail、Google Drive、Google Calendar 等）時，請遵循以下指導原則：
+- 使用 googleworkspace cli 參考：`https://github.com/googleworkspace/cli`
