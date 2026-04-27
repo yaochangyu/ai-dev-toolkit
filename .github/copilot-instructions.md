@@ -25,7 +25,7 @@
 - 遵守 SOLID 開發原則
 - .NET Core 的開發原則參考 `https://github.com/yaochangyu/api.template/blob/main/CLAUDE.md`
 - Cucumber 的步驟，使用英文
-- 排版參考 `.editorconfig\.net\.editorconfig`
+- 排版參考 `~/.claude/editorconfig/.net/.editorconfig`
 
 # git
 ## git commit message 格式
@@ -50,7 +50,7 @@
 - 工作專案對應表格維護在 `/mnt/d/lab/gitlab-work/project_mapping.csv`
 
 # 基礎建設
-- 服務位置 `~/.claude/infa.md`
+- 服務位置 `~/.claude/infra.md`
 
 # LLM Wiki
 - Wiki 知識庫路徑：`/mnt/d/lab/llm-wiki/`
