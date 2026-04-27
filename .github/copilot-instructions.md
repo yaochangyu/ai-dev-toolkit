@@ -32,6 +32,11 @@
 1. 若沒有 ticket id，則詢問我是否需要加上 ticket id?
     - 若有 ticket id 最後一行加上，`Bundle: (ticket id)`
 2. Write a concise commit message from 'git diff --staged' output in the format `[EMOJI] [TYPE](file/topic)(ticket id)): [description in {locale}]`. Use GitMoji emojis (e.g., ✨ → feat), present tense, active voice, max 120 characters per line, no code blocks.
+3. 若 commit message 的 body 使用 markdown 格式。
+4. MR description 使用 markdown 格式，並且包含以下內容：
+    - 變更的背景與目的
+    - 主要的變更內容
+    - 相關的 ticket id（如果有的話）
 
 
 注意：
