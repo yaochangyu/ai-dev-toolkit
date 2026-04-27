@@ -36,7 +36,7 @@
 
 注意：
 - 回覆時，使用台灣用語的繁體中文
-- 訊息不可以包含 Co-authored-by
+- git commit message 訊息不可以包含 Co-authored-by
 
 ## git worktree 衝突解決
    1. 開啟 `git rerere`。
