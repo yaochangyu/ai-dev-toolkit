@@ -30,18 +30,23 @@
 - 遵守 SOLID 開發原則
 - .NET Core 的開發原則參考 `https://github.com/yaochangyu/api.template/blob/main/CLAUDE.md`
 - Cucumber 的步驟，使用英文
-- 排版參考 `.editorconfig\.net\.editorconfig`
+- 排版參考 `~/.claude/editorconfig/.net/.editorconfig`
 
 # git
 ## git commit message 格式
 1. 若沒有 ticket id，則詢問我是否需要加上 ticket id?
     - 若有 ticket id 最後一行加上，`Bundle: (ticket id)`
 2. Write a concise commit message from 'git diff --staged' output in the format `[EMOJI] [TYPE](file/topic)(ticket id)): [description in {locale}]`. Use GitMoji emojis (e.g., ✨ → feat), present tense, active voice, max 120 characters per line, no code blocks.
+3. 若 commit message 的 body 使用 markdown 格式。
+4. MR description 使用 markdown 格式，並且包含以下內容：
+    - 變更的背景與目的
+    - 主要的變更內容
+    - 相關的 ticket id（如果有的話）
 
 
 注意：
 - 回覆時，使用台灣用語的繁體中文
-- 訊息不可以包含 Co-authored-by
+- git commit message 訊息不可以包含 Co-authored-by
 
 ## git worktree 衝突解決
    1. 開啟 `git rerere`。
@@ -55,7 +60,7 @@
 - 工作專案對應表格維護在 `/mnt/d/lab/gitlab-work/project_mapping.csv`
 
 # 基礎建設
-- 服務位置 `~/.claude/infa.md`
+- 服務位置 `~/.claude/infra.md`
 
 # LLM Wiki
 - Wiki 知識庫路徑：`/mnt/d/lab/llm-wiki/`
