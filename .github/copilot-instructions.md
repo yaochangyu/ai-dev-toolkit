@@ -28,8 +28,7 @@
 - 回答問題時，把輸出分成，已知事實、推論、建議。
 - 不要用 echo 或任何方式印出環境變數的值，直接在指令中使用 $VAR 即可。
 - 有關 ticket 的操作：
-    - 參考 `~/.claude/creds/.creds`
-    - 後續有關工單的操作都是用 `ua-cli`，位置在 `https://192.168.1.158/JobBank1111/ua-cli`
+    - 後續有關 ticket 的操作都是用 `ua-cli`，使用步驟在 `https://192.168.1.158/JobBank1111/ua-cli`
 
 # 開發原則
 - 遵守 SOLID 開發原則
