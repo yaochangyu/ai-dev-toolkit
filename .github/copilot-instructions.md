@@ -25,15 +25,19 @@
 - 功能實作後，要確保功能正確運作
     - 一定要 build
     - 詢問我是否需要執行測試，若需要，則執行測試
+<<<<<<< HEAD
 - 回答問題時，把輸出分成，已知事實、推論、建議。
+=======
+>>>>>>> 7121447 (docs: 更新 copilot-instructions.md，新增有關工單操作的說明及修正 Cucumber 步驟語言要求)
 - 不要用 echo 或任何方式印出環境變數的值，直接在指令中使用 $VAR 即可。
 - 有關 ticket 的操作：
     - 參考 `~/.claude/creds/.creds`
+    - 後續有關工單的操作都是用 `ua-cli`，位置在 `https://192.168.1.158/JobBank1111/ua-cli`
 
 # 開發原則
 - 遵守 SOLID 開發原則
 - .NET Core 的開發原則參考 `https://github.com/yaochangyu/api.template/blob/main/CLAUDE.md`
-- Cucumber 的步驟，使用英文
+- Cucumber 的步驟，使用中文。Cucumber 的保留字(Feature、Background、Scenario、Given、When、Then)使用英文。
 - 排版參考 `~/.claude/editorconfig/.net/.editorconfig`
 
 # git
