@@ -37,6 +37,16 @@
 - 排版參考 `~/.claude/editorconfig/.net/.editorconfig`
 
 # git
+## 憑證安全（HTTPS 認證）
+- 適用所有 git HTTPS 主機（GitLab、GitHub 等），不限特定 host。
+- 禁止將 token 內嵌在 remote URL（如 `https://oauth2:<token>@host/...`）：clone 時用的 URL 會原封不動寫入 `.git/config`，導致 token 明文落地。
+- 一律使用 git credential helper 取得憑證，保持 remote URL 乾淨（`https://host/group/repo.git`）。
+- credential helper 對應：GitLab 用 `glab auth git-credential`、GitHub 用 `gh auth git-credential`（或系統的 credential manager）。
+- GitLab 範例（以 192.168.1.158 為例，其他 host 替換即可）：
+  `git -c "credential.https://192.168.1.158.helper=!f() { GITLAB_HOST=192.168.1.158 glab auth git-credential \"$@\"; }; f" clone <url> <dir>`
+- helper 回傳的 username 可能為空，若 HTTP Basic 被拒，username 用 `oauth2`，token 仍走 helper（勿寫進 URL）。
+- 若不得已曾用內嵌 URL，事後立即 `git remote set-url origin <乾淨URL>`，並評估是否輪替該 token。
+
 ## git commit message 格式
 1. 若沒有 ticket id，則詢問我是否需要加上 ticket id?
     - 若有 ticket id 最後一行加上，`Bundle: (ticket id)`
